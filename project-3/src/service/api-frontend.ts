@@ -13,7 +13,7 @@ class ApiFrontend extends IAPI {
 			id: shortid()
 	 	} as Todo;
 		CreateTodo(newTodo);
-		return Promise.resolve(newTodo);
+		return new Promise(resolve => setTimeout(resolve, 1000)).then(() => newTodo);
 	}
 
 	async getTodosService(): Promise<Todo[]> {

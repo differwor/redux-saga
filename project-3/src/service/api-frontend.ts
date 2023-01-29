@@ -1,6 +1,6 @@
 import shortid from "shortid"; 
-import { Todo, TodoStatus } from "../models/todo";
-import { CreateTodo, GetTodos, RemoveTodos, UpdateTodoStatus, ToggleAllStatus, editTodoById } from "../utils/LocalService";
+import { Todo, TodoStatus } from "models/todo";
+import { CreateTodo, GetTodos, RemoveTodos, UpdateTodoStatus, ToggleAllStatus, editTodoById } from "../utils/TodoLocalService";
 import { IAPI } from "./types";
 
 // mock api

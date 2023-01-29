@@ -1,4 +1,4 @@
-import { Todo, TodoStatus } from '../models/todo';
+import { Todo, TodoStatus } from 'models/todo';
 
 const GetTodos = () : Todo[] => {
 	const todos : any = localStorage.getItem("todos");

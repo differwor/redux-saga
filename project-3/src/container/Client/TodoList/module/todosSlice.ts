@@ -1,7 +1,7 @@
-import { Todo, TodoStatus } from "../../../../models/todo"
+import { Todo, TodoStatus } from "models/todo"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { RootState } from '../../../../app/store';
-import { getDateString } from '../../../../utils/utils';
+import { RootState } from 'app/store';
+import { getDateString } from 'utils/utils';
 import * as payloadTypes from './payloadTypes';
 
 // interface
@@ -52,11 +52,17 @@ export const todosSlice = createSlice({
 			}
 			state.message = action.payload.message;
 		},
-		remove: (state, action: PayloadAction<payloadTypes.RemoveTodoAction>) => { 
+		remove: (state, action: PayloadAction<payloadTypes.RemoveTodoAction>) => {  
 			if (action.payload.message !== 'Error!') {
 				state.todoList = state.todoList.filter(todo => !action.payload.selected_id.includes(todo.id));
 			}
-			state.message = action.payload.message;
+			state.message = action.payload.message; 
+			state.notedDate = [];
+			state.todoList.forEach(todo => {
+				if (!state.notedDate.includes(todo.created_date)) {
+					state.notedDate = [...state.notedDate, todo.created_date];
+				}
+			});
 		},
 		toggleAllTodos: (state, action: PayloadAction<string>) => {
 			const newTodos =  state.todoList.map((todo) => { 
@@ -103,5 +109,6 @@ export const { set, add, updateStatus, remove, toggleAllTodos, setSelectedDate, 
 
 // Other code such as selectors can use the imported `RootState` type (same as useSelector)
 export const selectTodos = (state: RootState) => state.todos
+export const selectedDate = (state: RootState) => state.todos.selectedDate
 
 export default todosSlice.reducer

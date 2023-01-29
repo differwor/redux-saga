@@ -1,4 +1,4 @@
-import { TodoStatus } from "../models/todo";
+import { TodoStatus } from "models/todo";
 
 export const getDateString = (date: Date) => {
 	const dateArr: string[] = date.toLocaleDateString().split('/').reverse();

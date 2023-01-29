@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import moment from 'moment';
 
 function Timer() {
 	const [time, setTime] = useState<string>(moment().format('HH : mm : ss'));
+	const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 	useEffect(() => {
-		let timer = setTimeout(() => {
+		timeoutRef.current = setTimeout(() => {
 			setTime(moment().format('HH : mm : ss'));
 		}, 1000);
 		return () => {
-			clearTimeout(timer);
+			clearTimeout(timeoutRef.current);
 		};
 	},
 	[time]);

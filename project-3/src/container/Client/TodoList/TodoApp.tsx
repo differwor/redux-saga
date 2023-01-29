@@ -1,8 +1,8 @@
 import moment from 'moment';
 import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { Todo, TodoStatus } from '../../../models/todo';
-import { deleteTodos, getTodos, toggleAllStatus } from '../../../sagas/actionCreators/todosActionCreators';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { Todo, TodoStatus } from 'models/todo';
+import { deleteTodos, getTodos, toggleAllStatus } from './sagas/actionCreators/todosActionCreators';
 import AddForm from './components/AddForm/AddForm';
 import Timer from './components/Timer/Timer';
 import TodoFilter from './components/TodoFilter/TodoFilter';

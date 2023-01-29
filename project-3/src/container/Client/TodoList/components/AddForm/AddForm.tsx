@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../../../app/hooks';
-import { AppDispatch } from '../../../../../app/store';
-import { createTodo } from '../../../../../sagas/actionCreators/todosActionCreators';
+import { useAppDispatch } from 'app/hooks';
+import { AppDispatch } from 'app/store';
+import { createTodo } from 'container/Client/TodoList/sagas/actionCreators/todosActionCreators';
 
 function AddForm() {
 	const [value, setValue] = useState<string>('');
-	const selectStore = useAppSelector((state) => state.todos);
 	const dispatch: AppDispatch = useAppDispatch();
 	
 	const handleAddTodo = (e: any): void => {
@@ -13,7 +12,7 @@ function AddForm() {
 		// dispatch action
 		if (value) {
 			dispatch(
-				createTodo(value, selectStore.selectedDate) //saga
+				createTodo(value) //saga
 			)
 			setValue(''); 
 		}

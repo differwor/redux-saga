@@ -1,10 +1,7 @@
 export const CREATE_TODO = "todosSagaActionTypes/CREATE_TODO_SAGA";
 export interface CreateTodoAction {
 	type: typeof CREATE_TODO,
-	payload: {
-		content: string,
-		created_date: string
-	}
+	payload: string
 }
 
 export const GET_TODOS = "todosSagaActionTypes/GET_TODOS_SAGA";

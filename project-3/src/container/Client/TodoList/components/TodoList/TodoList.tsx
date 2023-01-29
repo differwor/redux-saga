@@ -1,11 +1,11 @@
-import { useAppSelector } from '../../../../../app/hooks';
-import { Todo, TodoStatus } from '../../../../../models/todo';
+import { useAppSelector } from 'app/hooks';
+import { Todo, TodoStatus } from 'models/todo';
 import TodoItem from '../TodoItem/TodoItem';
 import './style.css';
 
 function TodoList() {
 	
-	const selectStore = useAppSelector((state) => state.todos);
+	const { todoList, selectedDate, filter} = useAppSelector((state) => state.todos);
 
 	const filterByStatus = (status: TodoStatus | undefined, todo: Todo): boolean | undefined => {
 		switch (status) {
@@ -20,14 +20,14 @@ function TodoList() {
 		}
 	}
 
-	const todoWithFilter = selectStore.todoList.filter((todo) => {
-		if (selectStore.filter.byDate) {
-			if (todo.created_date === selectStore.selectedDate) {
-				return filterByStatus(selectStore.filter.byStatus, todo);
+	const todoWithFilter = todoList.filter((todo) => {
+		if (filter.byDate) {
+			if (todo.created_date === selectedDate) {
+				return filterByStatus(filter.byStatus, todo);
 			}
 			return false;
 		} 
-		return filterByStatus(selectStore.filter.byStatus, todo);	
+		return filterByStatus(filter.byStatus, todo);	
 	}); 
 	
 	return (

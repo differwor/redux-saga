@@ -1,25 +1,25 @@
 import React, { useState, forwardRef, useMemo } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useAppDispatch, useAppSelector } from '../../../../../app/hooks';
-import { AppDispatch } from "../../../../../app/store";
-import { TodoStatus } from "../../../../../models/todo";
-import { getDateString, getStatus } from "../../../../../utils/utils";
-import { changeFilterType, setSelectedDate } from "../../module/todosSlice";
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { AppDispatch } from "app/store";
+import { TodoStatus } from "models/todo";
+import { getDateString, getStatus } from "utils/utils";
+import { changeFilterType, setSelectedDate } from "container/Client/TodoList/module/todosSlice";
 
 function TodoFilter() {
   const dispatch: AppDispatch = useAppDispatch();
   
-  const selectStore = useAppSelector((state) => state.todos);
+  const {notedDate, selectedDate, filter} = useAppSelector((state) => state.todos);
 
   const [showAll, setShowAll] = useState<boolean>(true);
-  const [startDate, setStartDate] = useState<Date>(new Date(selectStore.selectedDate));
+  const [startDate, setStartDate] = useState<Date>(new Date(selectedDate));
 
-  const filterStatus = useMemo(() => getStatus(selectStore.filter.byStatus), [selectStore.filter.byStatus]);
+  const filterStatus = useMemo(() => getStatus(filter.byStatus), [filter.byStatus]);
      
   const handleChangeStatus = () => {
     Object.values(TodoStatus).every((status, index) => {
-      if (selectStore.filter.byStatus === status) {
+      if (filter.byStatus === status) {
         let arrStatus = Object.values(TodoStatus);
         dispatch(changeFilterType({byStatus: arrStatus[(arrStatus.length === (index + 1) ? 0 : index + 1)]})); // number of status
           return false;
@@ -51,7 +51,7 @@ function TodoFilter() {
             onChange={handleOnChange}
             dateFormat="dd/MM/yyyy"
             disabled={!showAll ? false : true}
-            highlightDates={selectStore.notedDate.map((date) => new Date(date))}
+            highlightDates={notedDate.map((date) => new Date(date))}
             placeholderText="This highlights a week ago and a week from today"
             customInput={<ExampleCustomInput />}
           />

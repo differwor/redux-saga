@@ -1,13 +1,15 @@
-import { all, call, fork, put, takeEvery } from "redux-saga/effects";
-import { add, set, remove, updateStatus, toggleAllTodos, edit } from "../../container/Client/TodoList/module/todosSlice";
-import { Todo } from "../../models/todo";
-import ApiFrontend from '../../service/api-frontend';
-import * as actionTypes from "../actionTypes/todosActionTypes";
+import { all, call, fork, put, select, takeEvery } from "redux-saga/effects";
+import { add, set, remove, updateStatus, toggleAllTodos, edit } from "container/Client/TodoList/module/todosSlice";
+import { Todo } from "models/todo";
+import ApiFrontend from 'service/api-frontend';
+import * as actionTypes from "container/Client/TodoList/sagas/actionTypes/todosActionTypes";
+import * as storeData from 'container/Client/TodoList/module/todosSlice'; // import data from store of redux
 
 // worker Saga: will be fired on actionTypes.CREATE_TODO actions
 const createTodo = function* ({payload}: actionTypes.CreateTodoAction) {
+	const create_date: string = yield select(storeData.selectedDate);
 	try {
-		const res: Todo = yield call(ApiFrontend.createTodoService, payload.content, payload.created_date );
+		const res: Todo = yield call(ApiFrontend.createTodoService, payload, create_date );
 		yield put(add(res)); 
 	} catch (error) {
 		

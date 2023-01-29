@@ -1,12 +1,9 @@
 import * as actions from "../actionTypes/todosActionTypes";
 
-export function createTodo(content: string, created_date: string): actions.CreateTodoAction {
+export function createTodo(content: string): actions.CreateTodoAction {
 	return {
 		type: actions.CREATE_TODO,
-		payload: {
-			content: content,
-			created_date: created_date
-		}
+		payload: content
 	}
 }
 
